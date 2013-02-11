@@ -2,7 +2,7 @@ package http2
 
 // ":8080"
 // "unix:///tmp/a.sock"
-func ListenAndServe2(addr string, handler Handler) error {
+func ListenAndServe(addr string, handler Handler) error {
 	if strings.HasPrefix(addr, "unix://") {
 		addr = addr[7:]
 		os.Remove(addr)
