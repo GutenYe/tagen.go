@@ -2,6 +2,8 @@ package os2
 
 import (
 	"testing"
+	"os"
+	"io/ioutil"
 )
 
 var is_exist_tests = []struct {
@@ -28,5 +30,22 @@ func TestIsNotExist(t *testing.T) {
 		if r == tt.out {
 			t.Errorf("%d. IsNotExist(%q) => %q, want %q", i, tt.in, r, tt.out)
 		}
+	}
+}
+
+func initEmptyAll() {
+	os.MkdirAll("testtmp/da", 0755)
+	ioutil.WriteFile("testtmp/fa", []byte("foo"), 0644)
+	ioutil.WriteFile("testtmp/da/dfa", []byte("bar"), 0644)
+}
+
+func TestEmptyAll(t *testing.T) {
+	initEmptyAll()
+	err := EmptyAll("testtmp")
+	if err != nil { t.Fatal(err) }
+	files, err := ioutil.ReadDir("testtmp")
+	if err != nil { t.Fatal(err) }
+	if len(files) != 0 {
+		t.Fatalf("`testtmp' directory is not emptyed.")
 	}
 }
