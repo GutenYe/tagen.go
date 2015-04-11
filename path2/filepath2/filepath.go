@@ -8,7 +8,6 @@ import (
 // Return string only
 func Abs2(path string) string {
 	a, _ := filepath.Abs(path)
-  a, _ = filepath.EvalSymlinks(a)
 	return a
 }
 
@@ -19,7 +18,6 @@ func ExtendAbs(path string) (string, error) {
 	}
 
   a, err := filepath.Abs(path)
-  a, _ = filepath.EvalSymlinks(a)
   return a, err
 }
 
