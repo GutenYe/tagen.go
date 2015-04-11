@@ -3,6 +3,7 @@ package strings2
 import (
 	"regexp"
 	"bytes"
+  "strings"
 )
 
 var camelingRegex = regexp.MustCompile("[0-9A-Za-z]+")
@@ -15,4 +16,8 @@ func CamelCase(str string) string {
     }
   }
   return string(bytes.Join(chunks, nil))
+}
+
+func ClassCase(str string) string {
+  return strings.Title(CamelCase(str))
 }
